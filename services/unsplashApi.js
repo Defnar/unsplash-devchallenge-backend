@@ -11,6 +11,14 @@ const unsplashUrl = axios.create({
   },
 });
 
+
+/**
+ * Fetch images from Unsplash API
+ * @param {string} query - Search term for images
+ * @param {number} limit - Number of images to fetch (0–30)
+ * @param {number} page - Pagination index
+ * @param {string} order_by - Sort order (relevant, latest, etc.)
+ */
 const getImages = async (query, limit, page, order_by) => {
   const per_page = Math.min(Math.max(unsplashMin, limit), unsplashMax);
 
@@ -30,5 +38,7 @@ const getImages = async (query, limit, page, order_by) => {
     return { results: [], total: 0, error: true };
   }
 };
+
+
 
 export { getImages };

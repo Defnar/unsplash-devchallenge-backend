@@ -1,19 +1,32 @@
 import { model, Schema } from "mongoose";
 
 const CollectionSchema = new Schema({
-    name: {
+  name: {
+    type: String,
+    required: true,
+    minLength: 6,
+    maxLength: 20,
+  },
+  description: String,
+  images: [
+    {
+      id: {
         type: String,
         required: true,
-        minLength: 6,
-        maxLength: 20
+      },
+      description: String,
+      urls: [
+        {
+          raw: String,
+          full: String,
+          regular: String,
+          small: String,
+          thumb: String,
+        },
+      ],
     },
-    description: String,
-    images: {
-        type: [String],
-        required: true, 
-        default: []
-    }
-})
+  ],
+});
 
 const Collection = model("Collection", CollectionSchema);
 

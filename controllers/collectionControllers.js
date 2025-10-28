@@ -26,4 +26,19 @@ const getCollections = async (req, res) => {
   }
 };
 
-export {getCollections}
+const getCollectionById = async (req, res) => {
+  const id = req.params["colleciton-id"];
+
+  try {
+    const response = await Collection.findById(id);
+
+    res.json(response);
+  } catch (error) {
+    console.error(error.message);
+    res
+      .status(500)
+      .json({ error: "Error retrieving collection from database" });
+  }
+};
+
+export { getCollections, getCollectionById };

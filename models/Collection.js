@@ -4,6 +4,7 @@ const CollectionSchema = new Schema({
   name: {
     type: String,
     required: true,
+    unique: true,
     minLength: 6,
     maxLength: 20,
   },

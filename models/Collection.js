@@ -7,6 +7,7 @@ const CollectionSchema = new Schema({
         minLength: 6,
         maxLength: 20
     },
+    description: String,
     images: {
         type: [String],
         required: true, 

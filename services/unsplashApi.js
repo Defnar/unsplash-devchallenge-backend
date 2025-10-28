@@ -11,7 +11,6 @@ const unsplashUrl = axios.create({
   },
 });
 
-
 /**
  * Fetch images from Unsplash API
  * @param {string} query - Search term for images
@@ -19,7 +18,7 @@ const unsplashUrl = axios.create({
  * @param {number} page - Pagination index
  * @param {string} order_by - Sort order (relevant, latest, etc.)
  */
-const getImages = async (query, limit, page, order_by) => {
+const unsplashSearch = async (query, limit, page, order_by) => {
   const per_page = Math.min(Math.max(unsplashMin, limit), unsplashMax);
 
   try {
@@ -39,6 +38,20 @@ const getImages = async (query, limit, page, order_by) => {
   }
 };
 
+/**
+ * fetch details on a specific image from unsplash API
+ * @param {string} id - unsplash photo id
+ */
 
+const unsplashImageDetails = async (id) => {
+  try {
+    const response = unsplashUrl.get(`/photos/${id}`);
 
-export { getImages };
+    return response.data;
+  } catch (err) {
+    console.error("Unsplash API Error: ", err.message);
+    return { error: true };
+  }
+};
+
+export { unsplashSearch, unsplashImageDetails };

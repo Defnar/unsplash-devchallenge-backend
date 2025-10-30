@@ -88,4 +88,21 @@ const deleteImageFromCollection = async (req, res) => {
   }
 };
 
-export { getCollections, getCollectionById, addImageToCollection, deleteImageFromCollection };
+const getImageFromCollection = async (req, res) => {
+  const {collectionId, imageId} = req.params;
+
+  try {
+    const collection = await Collection.findById(collectionId);
+
+    const image = collection.images.find(item => item.images.id === imageId);
+
+    if (!image) return res.status(404).json({error: "Image not found in collection"})
+
+    res.json(image);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({error: "Error retrieving image from collection"})
+  }
+}
+
+export { getCollections, getCollectionById, addImageToCollection, deleteImageFromCollection, getImageFromCollection };

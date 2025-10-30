@@ -1,9 +1,10 @@
 import e from "express";
+import { imageDetails, searchImages } from "../controllers/imageControllers";
 
 const router = e.Router();
 
 // /api/images/...
-router.get("/search", /* search controller here*/)
-router.get(":id", /*image controller here*/);
+router.get("/search", searchImages)
+router.get(":id", imageDetails);
 
 export default router;

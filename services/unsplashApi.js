@@ -45,7 +45,7 @@ const unsplashSearch = async (query, limit, page, order_by) => {
 
 const unsplashImageDetails = async (id) => {
   try {
-    const response = unsplashUrl.get(`/photos/${id}`);
+    const response = await unsplashUrl.get(`/photos/${id}`);
 
     return response.data;
   } catch (err) {

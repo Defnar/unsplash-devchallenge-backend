@@ -78,7 +78,7 @@ const addImageToCollection = async (req, res) => {
     if (!collection)
       return res.status(404).json({ error: "No collection found" });
 
-    if (collection.images.some((item) => item.images.id === image.id)) {
+    if (collection.images.some((item) => item.id === image.id)) {
       return res
         .status(409)
         .json({ message: "Image already exists in this collection" });
@@ -88,7 +88,7 @@ const addImageToCollection = async (req, res) => {
 
     await collection.save();
 
-    res.json({ message: "Image successfully added to collection" });
+    res.status(201).json({ message: "Image successfully added to collection" });
   } catch (err) {
     console.error(err.message);
     res

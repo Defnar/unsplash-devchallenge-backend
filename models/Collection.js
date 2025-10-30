@@ -14,15 +14,25 @@ const CollectionSchema = new Schema(
       {
         id: {
           type: String,
-          required: true,
+          required: true, 
         },
-        description: String,
+        description: String, 
+        alt_description: String, 
         urls: {
           raw: String,
           full: String,
           regular: String,
           small: String,
           thumb: String,
+        },
+        user: {
+          name: String, 
+          username: String, 
+          profile_url: String,
+        },
+        links: {
+          html: String, 
+          download: String,
         },
       },
     ],

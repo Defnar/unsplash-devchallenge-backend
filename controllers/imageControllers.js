@@ -1,4 +1,4 @@
-import { unsplashImageDetails, unsplashSearch } from "../services/unsplashApi";
+import { unsplashImageDetails, unsplashSearch } from "../services/unsplashApi.js";
 
 const searchImages = async (req, res) => {
   const { query, limit, page, order_by } = req.query;
@@ -16,7 +16,7 @@ const searchImages = async (req, res) => {
 const imageDetails = async (req, res) => {
   const { id } = req.params;
 
-  const response = unsplashImageDetails(id);
+  const response = await unsplashImageDetails(id);
 
   if (response.error)
     return res

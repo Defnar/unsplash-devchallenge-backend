@@ -70,7 +70,22 @@ const addImageToCollection = async (req, res) => {
 };
 
 const deleteImageFromCollection = async (req, res) => {
-  const {collectionId, imageId } = req.params
-}
+  const { collectionId, imageId } = req.params;
 
-export { getCollections, getCollectionById, addImageToCollection };
+  try {
+    const collection = await Collection.findById(collectionId);
+
+    collection.images = collection.images.filter(
+      (item) => item.images.id !== imageId
+    );
+
+    await collection.save();
+
+    res.json({ message: "Image successfully removed from collection" });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ error: "Error deleting collection from database" });
+  }
+};
+
+export { getCollections, getCollectionById, addImageToCollection, deleteImageFromCollection };

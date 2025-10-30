@@ -27,6 +27,10 @@ const CollectionSchema = new Schema(
         },
       },
     ],
+    imageCount: {
+      type: Number,
+      default: 0,
+    },
   },
   { timestamps: true }
 );

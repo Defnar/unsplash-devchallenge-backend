@@ -15,9 +15,7 @@ const getCollections = async (req, res) => {
       .skip((page - 1) * limit)
       .limit(limit);
 
-    const count = await Collection.countDocuments();
-
-    res.json({ total: count, results: collections });
+    res.json({ collections });
   } catch (error) {
     console.error(error.message);
     res
@@ -85,6 +83,7 @@ const addImageToCollection = async (req, res) => {
     }
 
     collection.images.push(image);
+    collection.imageCount += 1;
 
     await collection.save();
 
@@ -108,6 +107,7 @@ const deleteImageFromCollection = async (req, res) => {
 
     collection.images = collection.images.filter((item) => item.id !== imageId);
 
+    collection.imageCount -= 1;
     await collection.save();
 
     res.json({ message: "Image successfully removed from collection" });

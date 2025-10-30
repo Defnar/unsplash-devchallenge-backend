@@ -16,15 +16,13 @@ const CollectionSchema = new Schema({
         required: true,
       },
       description: String,
-      urls: [
-        {
-          raw: String,
-          full: String,
-          regular: String,
-          small: String,
-          thumb: String,
-        },
-      ],
+      urls: {
+        raw: String,
+        full: String,
+        regular: String,
+        small: String,
+        thumb: String,
+      },
     },
   ],
 });

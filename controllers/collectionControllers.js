@@ -8,7 +8,7 @@ const getCollections = async (req, res) => {
     : 10;
 
   try {
-    const response = await Collection.find()
+    const collections = await Collection.find()
       .sort({
         name: "asc",
       })
@@ -17,7 +17,7 @@ const getCollections = async (req, res) => {
 
     const count = await Collection.countDocuments();
 
-    res.json({ total: count, results: response });
+    res.json({ total: count, results: collections });
   } catch (error) {
     console.error(error.message);
     res
@@ -27,18 +27,46 @@ const getCollections = async (req, res) => {
 };
 
 const getCollectionById = async (req, res) => {
-  const id = req.params["colleciton-id"];
+  const id = req.params["collection-id"];
 
   try {
-    const response = await Collection.findById(id);
+    const collection = await Collection.findById(id);
 
-    res.json(response);
-  } catch (error) {
-    console.error(error.message);
+    res.json(collection);
+  } catch (err) {
+    console.error(err.message);
     res
       .status(500)
       .json({ error: "Error retrieving collection from database" });
   }
 };
 
-export { getCollections, getCollectionById };
+const addImageToCollection = async (req, res) => {
+  const id = req.params["collection-id"];
+
+  const { image } = req.body;
+
+  try {
+    const collection = await Collection.findById(id);
+
+    if (!collection)
+      return res.status(404).json({ error: "No collection found" });
+
+    if (collection.some((item) => item.images.id === image.id)) {
+      return res
+        .status(409)
+        .json({ message: "Image already exists in this collection" });
+    }
+
+    collection.images.push(image);
+
+    await collection.save();
+  } catch (err) {
+    console.error(err.message);
+    res
+      .status(500)
+      .json({ error: "Error retrieving collection from database" });
+  }
+};
+
+export { getCollections, getCollectionById, addImageToCollection };

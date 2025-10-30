@@ -27,7 +27,7 @@ const getCollections = async (req, res) => {
 };
 
 const getCollectionById = async (req, res) => {
-  const id = req.params["collection-id"];
+  const id = req.params.collectionId;
 
   try {
     const collection = await Collection.findById(id);
@@ -42,7 +42,7 @@ const getCollectionById = async (req, res) => {
 };
 
 const addImageToCollection = async (req, res) => {
-  const id = req.params["collection-id"];
+  const id = req.params.collectionId;
 
   const { image } = req.body;
 
@@ -68,5 +68,9 @@ const addImageToCollection = async (req, res) => {
       .json({ error: "Error retrieving collection from database" });
   }
 };
+
+const deleteImageFromCollection = async (req, res) => {
+  const {collectionId, imageId } = req.params
+}
 
 export { getCollections, getCollectionById, addImageToCollection };
